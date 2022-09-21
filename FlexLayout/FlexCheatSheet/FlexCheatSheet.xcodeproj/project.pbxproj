@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D407105728DB7F3C0060C079 /* ExCollectionViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D407105628DB7F3C0060C079 /* ExCollectionViewHeaderView.swift */; };
 		D413265C28C8C3A1008D4EF6 /* ExCollectionViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D413265B28C8C3A1008D4EF6 /* ExCollectionViewVC.swift */; };
 		D413265E28C8C54F008D4EF6 /* ExCollectionViewMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D413265D28C8C54F008D4EF6 /* ExCollectionViewMainView.swift */; };
 		D413266028C8C7AB008D4EF6 /* ExCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D413265F28C8C7AB008D4EF6 /* ExCollectionViewCell.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D407105628DB7F3C0060C079 /* ExCollectionViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExCollectionViewHeaderView.swift; sourceTree = "<group>"; };
 		D413265B28C8C3A1008D4EF6 /* ExCollectionViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExCollectionViewVC.swift; sourceTree = "<group>"; };
 		D413265D28C8C54F008D4EF6 /* ExCollectionViewMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExCollectionViewMainView.swift; sourceTree = "<group>"; };
 		D413265F28C8C7AB008D4EF6 /* ExCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 			children = (
 				D413265B28C8C3A1008D4EF6 /* ExCollectionViewVC.swift */,
 				D413265D28C8C54F008D4EF6 /* ExCollectionViewMainView.swift */,
+				D407105628DB7F3C0060C079 /* ExCollectionViewHeaderView.swift */,
 				D413265F28C8C7AB008D4EF6 /* ExCollectionViewCell.swift */,
 			);
 			path = CollectionView;
@@ -234,6 +237,7 @@
 				D4F12D0E28A8E7D900A3DC48 /* MainVC.swift in Sources */,
 				D4D0FBE428B0CD7B00B3DCDC /* MainView.swift in Sources */,
 				D413266228C8CA46008D4EF6 /* Cell+Reusable.swift in Sources */,
+				D407105728DB7F3C0060C079 /* ExCollectionViewHeaderView.swift in Sources */,
 				D4F12D2828A8F02600A3DC48 /* AaView.swift in Sources */,
 				D413265E28C8C54F008D4EF6 /* ExCollectionViewMainView.swift in Sources */,
 				D4F12D0A28A8E7D900A3DC48 /* AppDelegate.swift in Sources */,

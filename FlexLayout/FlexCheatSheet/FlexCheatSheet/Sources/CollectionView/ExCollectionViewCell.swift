@@ -14,15 +14,33 @@ final class ExCollectionViewCell: UICollectionViewCell {
     struct CellData {
         let header: String
         let content: String
+        var isSelected: Bool = false
         var isExpanded: Bool = false
     }
 
+    private enum Constants {
+        static var checkImage: UIImage? { UIImage(systemName: "checkmark.circle") }
+        static var checkFillImage: UIImage? { UIImage(systemName: "checkmark.circle.fill") }
+        static var arrowUpImage: UIImage? { UIImage(systemName: "arrowtriangle.up.fill") }
+        static var arrowDownImage: UIImage? { UIImage(systemName: "arrowtriangle.down.fill") }
+    }
+
+    private var selectHandler: (() -> Void)?
+    private var expandHandler: (() -> Void)?
+
+    private let selectButton = UIButton(type: .custom).then {
+        $0.setImage(Constants.checkImage, for: .normal)
+    }
     private let headerLabel = UILabel().then {
         $0.font = .preferredFont(forTextStyle: .title1)
         $0.backgroundColor = .systemGray4
     }
+    private let expandButton = UIButton(type: .custom).then {
+        $0.setImage(Constants.arrowDownImage, for: .normal)
+    }
     private let contentLabel = UILabel().then {
         $0.numberOfLines = 0
+        $0.backgroundColor = .systemGray5
     }
     private let contentContainerView = UIView()
 
@@ -30,6 +48,7 @@ final class ExCollectionViewCell: UICollectionViewCell {
         super.init(frame: .zero)
         setUpUI()
         defined()
+        setUpHandler()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -44,7 +63,22 @@ final class ExCollectionViewCell: UICollectionViewCell {
             .flex
             .padding(10)
             .define { flex in
-                flex.addItem(headerLabel)
+                flex.addItem()
+                    .direction(.row)
+                    .alignItems(.center)
+                    .height(40)
+                    .define { flex in
+                        flex.addItem(selectButton)
+                            .size(30)
+
+                        flex.addItem(headerLabel)
+                            .marginHorizontal(8)
+                            .grow(1)
+                            .shrink(1)
+
+                        flex.addItem(expandButton)
+                            .size(30)
+                    }
 
                 flex.addItem(contentContainerView)
                     .define { flex in
@@ -52,6 +86,11 @@ final class ExCollectionViewCell: UICollectionViewCell {
                             .marginTop(8)
                     }
             }
+    }
+
+    private func setUpHandler() {
+        selectButton.addTarget(self, action: #selector(didSelect), for: .touchUpInside)
+        expandButton.addTarget(self, action: #selector(didExpand), for: .touchUpInside)
     }
 
     override func layoutSubviews() {
@@ -72,10 +111,22 @@ final class ExCollectionViewCell: UICollectionViewCell {
         contentLabel.text = ""
         contentLabel.flex.markDirty()
         contentContainerView.flex.markDirty()
+        selectHandler = nil
+        expandHandler = nil
         setNeedsLayout()
     }
 
-    func configure(with cellData: CellData) {
+    func configure(
+        with cellData: CellData,
+        selectHandler: (() -> Void)? = nil,
+        expandHandler: (() -> Void)? = nil
+    ) {
+        self.selectHandler = selectHandler
+        self.expandHandler = expandHandler
+        selectButton.setImage(cellData.isSelected ? Constants.checkFillImage : Constants.checkImage, for: .normal)
+        selectButton.flex.markDirty()
+        expandButton.setImage(cellData.isExpanded ? Constants.arrowUpImage : Constants.arrowDownImage, for: .normal)
+        expandButton.flex.markDirty()
         headerLabel.text = cellData.header
         headerLabel.flex.markDirty()
 
@@ -110,6 +161,14 @@ final class ExCollectionViewCell: UICollectionViewCell {
         contentContainerView.flex.markDirty()
 
         setNeedsLayout()
+    }
+
+    @objc private func didSelect() {
+        selectHandler?()
+    }
+
+    @objc private func didExpand() {
+        expandHandler?()
     }
 
 }
