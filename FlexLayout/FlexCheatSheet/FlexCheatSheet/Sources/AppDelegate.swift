@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func goMain() {
-        self.window?.rootViewController = PinSampleVC()
+        self.window?.rootViewController = MainVC()
     }
 
 }

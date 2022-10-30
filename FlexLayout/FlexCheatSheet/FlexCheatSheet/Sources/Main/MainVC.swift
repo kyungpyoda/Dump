@@ -10,9 +10,11 @@ import UIKit
 final class MainVC: UIViewController {
 
     private lazy var mainView = MainView()
+    private lazy var autoLayoutMainView = AutoLayoutMainView()
 
     override func loadView() {
         view = mainView
+//        view = autoLayoutMainView
     }
 
 }

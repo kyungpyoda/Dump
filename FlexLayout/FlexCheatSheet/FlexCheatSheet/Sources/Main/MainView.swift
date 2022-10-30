@@ -12,11 +12,11 @@ import PinLayout
 final class MainView: UIView {
 
     private let flexRootView = UIView()
-    private let refreshButton: UIButton = UIButton(type: .system).then {
+    private lazy var refreshButton = UIButton(type: .system).then {
         $0.setImage(UIImage(systemName: "arrow.clockwise.circle.fill"), for: .normal)
         $0.addTarget(self, action: #selector(onTapRefresh), for: .touchUpInside)
     }
-    private let aaView: AaView = AaView()
+    private let autoFlexView = FlexAutoLayoutCompatibleView()
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -29,37 +29,38 @@ final class MainView: UIView {
     }
 
     private func setUpUI() {
-        self.backgroundColor = .systemGreen
+        backgroundColor = .systemBackground
         addSubview(flexRootView)
     }
 
     private func defined() {
         flexRootView
             .flex
-            .backgroundColor(.systemGreen)
+            .justifyContent(.center)
             .define { flex in
                 flex.addItem(refreshButton)
                     .position(.absolute)
-                    .top(30)
-                    .right(30)
+                    .top(20)
+                    .right(20)
+                    .size(44)
 
-                flex.addItem(aaView)
-                    .justifyContent(.center)
+                flex.addItem()
+                    .padding(10)
+                    .backgroundColor(.systemTeal)
+                    .define { flex in
+                        flex.addItem(autoFlexView)
+                    }
             }
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        layout()
-    }
-
-    private func layout() {
-        flexRootView.pin.all()
-        flexRootView.flex.layout(mode: .adjustHeight)
+        flexRootView.pin.all(pin.safeArea)
+        flexRootView.flex.layout()
     }
 
     @objc private func onTapRefresh() {
-        aaView.configure()
+        autoFlexView.configure()
         setNeedsLayout()
     }
 }
